@@ -80,14 +80,3 @@ def frmae2video(image_folder,video_path,size,fps = 25,postfix='.jpg'):
 
     return None
 
-
-if __name__ == '__main__':
-
-    video_root = '/home/share/shaojie/AQA/dataset/AQA_7/Actions/'
-    frame_root = '/home/share/shaojie/AQA/dataset/AQA_7/Frames/'
-    name_list = ['diving','gym_vault','ski_big_air','snowboard_big_air','sync_diving_3m','sync_diving_10m']
-    for name in name_list:
-        import os
-        video_path = os.path.join(video_root,name)
-        frame_path = os.path.join(frame_root,name)
-        video2frame(video_path,frame_path)
