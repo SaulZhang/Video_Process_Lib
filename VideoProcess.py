@@ -24,12 +24,18 @@ def video2frame(video_path,saved_path,img_format='.jpg'):
     # 保存图片的帧率间隔
     for index, video_name in enumerate(video_list):
         video_path_ = os.path.join(video_path, video_name)
-        img_folder = saved_path + video_name.split()[0]
+        img_folder = os.path.join(saved_path,video_name.split('.')[0])
+
+        if not os.path.exists(saved_path):
+            os.mkdir(saved_path)
+
         if not os.path.exists(img_folder):
             os.mkdir(img_folder)
+
         # 开始读视频
         videoCapture = cv2.VideoCapture(video_path_)
         print("正在处理第{}个视频，总共{}个视频".format(index+1, len(video_list)))
+        j = 0
         while True:
             success, frame = videoCapture.read()
             if not success:
@@ -37,8 +43,9 @@ def video2frame(video_path,saved_path,img_format='.jpg'):
                 break
             else:
                 # 保存图片
-                savedname = os.path.join(img_folder , str(j).zfill(7)+ img_format)
+                savedname = os.path.join(img_folder , str(j).zfill(4)+ img_format)
                 cv2.imwrite(savedname, frame)
+                j += 1
         videoCapture.release()
 
     return None
@@ -76,6 +83,11 @@ def frmae2video(image_folder,video_path,size,fps = 25,postfix='.jpg'):
 
 if __name__ == '__main__':
 
-    pass
-
-
+    video_root = '/home/share/shaojie/AQA/dataset/AQA_7/Actions/'
+    frame_root = '/home/share/shaojie/AQA/dataset/AQA_7/Frames/'
+    name_list = ['diving','gym_vault','ski_big_air','snowboard_big_air','sync_diving_3m','sync_diving_10m']
+    for name in name_list:
+        import os
+        video_path = os.path.join(video_root,name)
+        frame_path = os.path.join(frame_root,name)
+        video2frame(video_path,frame_path)
