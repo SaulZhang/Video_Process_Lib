@@ -72,7 +72,7 @@ def frmae2video(image_folder,video_path,size,fps = 25,postfix='.jpg'):
     video = cv2.VideoWriter(video_path, fourcc, fps, size )
     for img_name in filelist:
         if img_name.endswith(postfix):
-            img_path = os.ptah.join(img_path,img_name)
+            img_path = os.path.join(image_folder,img_name)
             img = cv2.imread(img_path)#opencv读取图像，直接通道顺序为BGR的numpy.ndarray对象，通道值默认范围0-255。
             video.write(img)
  
